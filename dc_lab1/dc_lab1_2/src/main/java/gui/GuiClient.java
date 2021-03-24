@@ -55,6 +55,11 @@ public class GuiClient {
         JButton startButton = new JButton("Start 1");
 
         startButton.addActionListener(e -> {
+            if (thread2 != null && thread2.isAlive()) {
+                JOptionPane.showMessageDialog(null, "Blocked due to another thread");
+                return;
+            }
+
             startButton.setEnabled(false);
             thread1 = new Thread(runnable1);
             thread1.setPriority(Thread.MIN_PRIORITY);
@@ -68,6 +73,11 @@ public class GuiClient {
         JButton startButton = new JButton("Start 2");
 
         startButton.addActionListener(e -> {
+            if (thread1 != null && thread1.isAlive()) {
+                JOptionPane.showMessageDialog(null, "Blocked due to another thread");
+                return;
+            }
+
             startButton.setEnabled(false);
             thread2 = new Thread(runnable2);
             thread2.setPriority(Thread.MAX_PRIORITY);
