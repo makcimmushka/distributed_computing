@@ -1,0 +1,16 @@
+# MacOS
+.DS_Store
+
+# IntelliJ
+.idea/
+
+.gradle/
+
+build/
+
+### Kotlin template
+# Compiled class file
+*.class
+
+# Package Files #
+*.jar
