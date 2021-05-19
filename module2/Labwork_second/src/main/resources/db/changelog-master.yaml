@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Maxim Kovalchuk
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_groups
+                  name: id
+                  type: SERIAL
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: name
+                  type: VARCHAR(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: age_limit
+                  type: int8
+            remarks: Contains news categories
+            tableName: categories
+  - changeSet:
+      id: 2
+      author: Maxim Kovalchuk
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_students
+                  name: id
+                  type: SERIAL
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: text
+                  type: VARCHAR(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: category_id
+                  type: int8
+            remarks: Contains news
+            tableName: news
+  - changeSet:
+      id: 3
+      author: Maxim Kovalchuk
+      changes:
+        - insert:
+            columns:
+              - column:
+                  name: name
+                  value: Funny
+              - column:
+                  name: age_limit
+                  value: 3
+            schemaName: public
+            tableName: categories

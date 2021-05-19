@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.knu.controller.Controller">
+
+    <Pane prefHeight="385.0" prefWidth="700.0">
+        <TreeView fx:id="mTreeView" layoutX="14.0" layoutY="14.0" prefHeight="373.0" prefWidth="259.0" />
+
+        <Button fx:id="addNews" layoutX="329.0" layoutY="140.0" mnemonicParsing="false" onAction="#addNews" prefWidth="130.0" text="Add news" />
+        <Button fx:id="updateNews" layoutX="329.0" layoutY="180.0" mnemonicParsing="false" onAction="#updateNews" prefWidth="130.0" text="Update news" />
+        <Button fx:id="removeNews" layoutX="329.0" layoutY="218.0" mnemonicParsing="false" onAction="#removeNews" prefWidth="130.0" text="Delete news" />
+        <Button fx:id="addNewsCategory" layoutX="545.0" layoutY="140.0" mnemonicParsing="false" onAction="#addNewsCategory" prefWidth="130.0" text="Add category" />
+        <Button fx:id="updateNewsCategory" layoutX="545.0" layoutY="180.0" mnemonicParsing="false" onAction="#updateNewsCategory" prefWidth="130.0" text="Update category" />
+        <Button fx:id="removeNewsCategory" layoutX="545.0" layoutY="218.0" mnemonicParsing="false" onAction="#removeNewsCategory" prefWidth="130.0" text="Delete category" />
+        <Button fx:id="save" layoutX="443.0" layoutY="281.0" mnemonicParsing="false" onAction="#save" prefWidth="130.0" text="Save" />
+
+        <TextField fx:id="mNewsTitle" layoutX="329.0" layoutY="65.0" prefHeight="25.0" prefWidth="130.0" />
+        <TextField fx:id="mNewsAuthor" layoutX="329.0" layoutY="100.0" prefHeight="25.0" prefWidth="130.0" />
+        <TextField fx:id="mCategoryName" layoutX="545.0" layoutY="65.0" prefHeight="25.0" prefWidth="130.0" />
+        <TextField fx:id="mNewsCategoryAgeLimit" layoutX="545.0" layoutY="100.0" prefHeight="25.0" prefWidth="130.0" />
+
+        <Label layoutX="545.0" layoutY="38.0" text="Category" />
+        <Label layoutX="379.0" layoutY="38.0" text="News" />
+        <Label layoutX="289.0" layoutY="69.0" text="Title">
+            <font>
+                <Font name="Roboto Light" size="12.0" />
+            </font>
+        </Label>
+        <Label layoutX="282.0" layoutY="104.0" text="Author">
+            <font>
+                <Font name="Roboto Light" size="12.0" />
+            </font>
+        </Label>
+        <Label layoutX="484.0" layoutY="69.0" text="Category">
+            <font>
+                <Font name="Roboto Light" size="12.0" />
+            </font>
+        </Label>
+        <Label layoutX="484.0" layoutY="104.0" prefHeight="17.0" prefWidth="48.0" text="Age limit">
+            <font>
+                <Font name="Roboto Light" size="12.0" />
+            </font>
+        </Label>
+    </Pane>
+
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>
