@@ -1,0 +1,61 @@
+import * as mysql from 'mysql2';
+import {
+  Pool as PromisePool,
+  ResultSetHeader as SqlMetadata,
+} from 'mysql2/promise';
+
+
+const defaultDbOptions: mysql.PoolOptions = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  dateStrings: true,
+  multipleStatements: true,
+  debug: false,
+  connectTimeout: 15000,
+};
+
+export class Connector {
+  private readonly connectionPool: PromisePool;
+  constructor(
+    private readonly dbOptions: mysql.PoolOptions = defaultDbOptions,
+  ) {
+    this.connectionPool = mysql.createPool(dbOptions).promise();
+  }
+
+  /**
+    * Raw SQL query execution (can send several queries at once, but it's more preferable to execute only one at a time)
+    * @param {string} query - SQL query to execute
+    * @param {any[]} values - Placeholder values for SQL query
+    * @return {Promise<any>}
+  **/
+  public async query(query: string, values: any[] = []): Promise<any> {
+    const wrappedQuery: string = this.wrapQueryWithTransaction(query);
+    const rows: any = await this.connectionPool
+      .query(wrappedQuery, values)
+      .then(([rows]) => rows)
+      .catch(async (err) => {
+        console.error('DB error with query:', wrappedQuery, 'and values:', JSON.stringify(values));
+        console.error(err.stack);
+        await this.connectionPool.query('ROLLBACK;');
+      });
+
+    return this.parseSqlData(rows);
+  }
+
+  private wrapQueryWithTransaction(query: string): string {
+    return `START TRANSACTION; ${query} COMMIT;`;
+  }
+
+  private parseSqlData(rows: any): any[] {
+    return Array.isArray(rows)
+      ? (rows as any[]).flat(10).filter(row => !this.isSqlMetadata(row))
+      : [];
+  }
+
+  private isSqlMetadata(data: Record<string, any>): boolean {
+    return 'affectedRows' in data
+      && 'fieldCount' in data; // check `SqlMetadata` interface above
+  }
+}
